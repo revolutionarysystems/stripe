@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1403172446354
+Build-Jdk: 1.8.0_05
+Built-By: Andrew
+Bundle-ClassPath: .,commons-io-2.4.jar,commons-codec-1.6.jar
+Bundle-ManifestVersion: 2
+Bundle-Name: Stripe OSGI Bundle
+Bundle-SymbolicName: stripe-client-osgi
+Bundle-Version: 0.1.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: commons-io,commons-codec
+Embed-Transitive: true
+Embedded-Artifacts: commons-io-2.4.jar;g="commons-io";a="commons-io";v="
+ 2.4",commons-codec-1.6.jar;g="commons-codec";a="commons-codec";v="1.6"
+Import-Package: org.osgi.service.blueprint;version="[1.0.0,2.0.0)",uk.co
+ .revsys.stripe.client
+Tool: Bnd-1.50.0
