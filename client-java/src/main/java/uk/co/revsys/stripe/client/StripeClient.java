@@ -6,11 +6,15 @@ import com.stripe.exception.APIException;
 import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Customer;
 import com.stripe.model.Plan;
+import com.stripe.model.Subscription;
+import com.stripe.model.Token;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import uk.co.revsys.utils.http.HttpClient;
 import uk.co.revsys.utils.http.HttpRequest;
@@ -18,15 +22,47 @@ import uk.co.revsys.utils.http.HttpResponse;
 
 public class StripeClient {
 
-    public StripeClient() {
+    String apiKey;
+    
+    public StripeClient(String apiKey) {
+        this.apiKey=apiKey;
+        Stripe.apiKey = apiKey;
     }
     
     public String plans() throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
-        Stripe.apiKey = "sk_test_4qo3vbZaV6CI9l3ITyox2St3";
         String response = Plan.all(new HashMap<String, Object>()).toString();
-        return response;
+        return stripJSONPrefix(response);
     }
     
-
+    public String getCardToken(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        Map<String, Object> tokenParams = JSONUtil.json2map(json);
+        String response = Token.create(tokenParams).toString();
+        return stripJSONPrefix(response);
+    }
+    
+    public String planCreate(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        Map<String, Object> params = JSONUtil.json2map(json);
+        String response = Plan.create(params).toString();
+        return stripJSONPrefix(response);
+    }
+    
+    public String customerCreate(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        Map<String, Object> params = JSONUtil.json2map(json);
+        String response = Customer.create(params).toString();
+        return stripJSONPrefix(response);
+    }
+    
+    public String subscriptionCreate(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        Map<String, Object> params = JSONUtil.json2map(json);
+        Customer customer = Customer.retrieve((String)params.get("customerId"));
+        params.remove("customerId");
+        String response = customer.createSubscription(params).toString();
+        return stripJSONPrefix(response);
+    }
+    
+    private String stripJSONPrefix(String jsonString){
+        String stripped= jsonString.substring(jsonString.indexOf("JSON: ")+6);
+        return stripped;
+    }
 
 }

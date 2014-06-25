@@ -13,13 +13,35 @@
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
 
         <route>
-            <from uri="direct-vm://esb.service.stripe.plans"/>
+            <from uri="direct-vm://esb.event.stripe.plans"/>
             <to uri="bean:stripeClient?method=plans()" />
+        </route>
+
+        <route>
+            <from uri="direct-vm://esb.event.stripe.tokens.getCardToken"/>
+            <setBody><simple>${header.formJSON}</simple></setBody>
+            <log message="json = ${body}"/>
+            <to uri="bean:stripeClient?method=getCardToken(${body})" />
+        </route>
+
+        <route>
+            <from uri="direct-vm://esb.event.stripe.customers.create"/>
+            <setBody><simple>${header.formJSON}</simple></setBody>
+            <log message="json = ${body}"/>
+            <to uri="bean:stripeClient?method=customerCreate(${body})" />
+        </route>
+
+        <route>
+            <from uri="direct-vm://esb.event.stripe.customers.createSubscription"/>
+            <setBody><simple>${header.formJSON}</simple></setBody>
+            <log message="json = ${body}"/>
+            <to uri="bean:stripeClient?method=subscriptionCreate(${body})" />
         </route>
 
     </camelContext>
     
     <bean id="stripeClient" class="uk.co.revsys.stripe.client.StripeClient">
+        <argument value="sk_test_4qo3vbZaV6CI9l3ITyox2St3"/>
     </bean>
     
 </blueprint>
