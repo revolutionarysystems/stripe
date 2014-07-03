@@ -21,7 +21,8 @@
             <from uri="direct-vm://esb.event.stripe.tokens.getCardToken"/>
             <setBody><simple>${header.formJSON}</simple></setBody>
             <log message="json = ${body}"/>
-            <to uri="bean:stripeClient?method=getCardToken(${body})" />
+            <log message="json = ${header.formJSON}"/>
+            <to uri="bean:stripeClient?method=getCardToken(${header.formJSON})" />
         </route>
 
         <route>

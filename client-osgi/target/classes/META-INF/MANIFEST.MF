@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1403262517237
+Bnd-LastModified: 1404127130934
 Build-Jdk: 1.8.0_05
 Built-By: Andrew
 Bundle-ClassPath: .,commons-io-2.4.jar,commons-codec-1.9.jar,stripe-clie
