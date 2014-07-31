@@ -39,6 +39,12 @@
             <to uri="bean:stripeClient?method=subscriptionCreate(${body})" />
         </route>
 
+        <route>
+            <from uri="direct-vm://esb.event.stripe.invoices"/>
+            <setBody><simple>${header.formJSON}</simple></setBody>
+            <log message="json = ${body}"/>
+            <to uri="bean:stripeClient?method=customerInvoices(${body})" />
+        </route>
     </camelContext>
     
     <bean id="stripeClient" class="uk.co.revsys.stripe.client.StripeClient">

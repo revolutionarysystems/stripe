@@ -7,6 +7,7 @@ import com.stripe.exception.AuthenticationException;
 import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.model.Customer;
+import com.stripe.model.Invoice;
 import com.stripe.model.Plan;
 import com.stripe.model.Subscription;
 import com.stripe.model.Token;
@@ -57,6 +58,14 @@ public class StripeClient {
         Customer customer = Customer.retrieve((String)params.get("customerId"));
         params.remove("customerId");
         String response = customer.createSubscription(params).toString();
+        return stripJSONPrefix(response);
+    }
+    
+    public String customerInvoices(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        Map<String, Object> invoiceParams = JSONUtil.json2map(json);
+        invoiceParams.put("customer", invoiceParams.get("customerId"));
+        invoiceParams.remove("customerId");
+        String response = Invoice.all(invoiceParams).toString();        
         return stripJSONPrefix(response);
     }
     
