@@ -53,6 +53,11 @@ public class StripeClient {
         return stripJSONPrefix(response);
     }
     
+    public String customerRetrieve(String customerId)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
+        String response = Customer.retrieve(customerId).toString();
+        return stripJSONPrefix(response);
+    }
+    
     public String subscriptionCreate(String json)throws IOException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException{
         Map<String, Object> params = JSONUtil.json2map(json);
         Customer customer = Customer.retrieve((String)params.get("customerId"));

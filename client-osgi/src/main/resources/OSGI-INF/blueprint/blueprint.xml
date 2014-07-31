@@ -45,6 +45,14 @@
             <log message="json = ${body}"/>
             <to uri="bean:stripeClient?method=customerInvoices(${body})" />
         </route>
+
+        <route>
+            <from uri="direct-vm://esb.event.stripe.customer"/>
+            <setBody><simple>${header.customerId}</simple></setBody>
+            <log message="customerId = ${body}"/>
+            <to uri="bean:stripeClient?method=customerRetrieve(${body})" />
+        </route>
+
     </camelContext>
     
     <bean id="stripeClient" class="uk.co.revsys.stripe.client.StripeClient">
