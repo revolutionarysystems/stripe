@@ -11,8 +11,7 @@
 	<name>Stripe - Parent POM</name>
 
 	<modules>
-            <module>client-java</module>
-            <module>client-osgi</module>
+            <module>camel</module>
 	</modules>
 
 	<properties>
