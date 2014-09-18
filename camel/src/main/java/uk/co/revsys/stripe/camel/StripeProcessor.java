@@ -22,7 +22,7 @@ public abstract class StripeProcessor implements Processor {
         try {
             Object object = doProcess(exchange);
             if (object != null) {
-                exchange.getOut().setBody(StripeObject.PRETTY_PRINT_GSON.toJson(object));
+                exchange.getIn().setBody(StripeObject.PRETTY_PRINT_GSON.toJson(object));
             }
         } catch (StripeException ex) {
             ex.printStackTrace();

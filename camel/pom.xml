@@ -67,8 +67,8 @@
                     <instructions>
                         <Bundle-SymbolicName>stripe-camel</Bundle-SymbolicName>
                         <Export-Package>uk.co.revsys.stripe.camel.*</Export-Package>
-                        <Import-Package>*</Import-Package>
-                        <Embed-Dependency>esb-component,stripe-java</Embed-Dependency>
+                        <Import-Package>!org.apache.log.*,*</Import-Package>
+                        <Embed-Dependency>esb-component,stripe-java,gson</Embed-Dependency>
                         <Embed-Transitive>true</Embed-Transitive>
                     </instructions>
                 </configuration>

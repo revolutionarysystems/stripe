@@ -10,6 +10,7 @@ public class CreateCustomerProcessor extends StripeProcessor {
 
     private String cardToken;
     private String description;
+    private String plan;
 
     public String getCardToken() {
         return cardToken;
@@ -27,11 +28,24 @@ public class CreateCustomerProcessor extends StripeProcessor {
         this.description = description;
     }
 
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
+    }
+
     @Override
     public StripeObject doProcess(Exchange exchng) throws Exception {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("card", getCardToken());
+        if (getCardToken() != null && !getCardToken().isEmpty()) {
+            params.put("card", getCardToken());
+        }
         params.put("description", getDescription());
+        if (getPlan() != null && !getPlan().isEmpty()) {
+            params.put("plan", getPlan());
+        }
         System.out.println("apiKey = " + getApiKey());
         Customer customer = Customer.create(params, getApiKey());
         return customer;
