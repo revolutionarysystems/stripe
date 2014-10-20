@@ -4,8 +4,9 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.StripeObject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import uk.co.revsys.esb.component.ParameterAwareProcessor;
 
-public abstract class StripeProcessor implements Processor {
+public abstract class StripeProcessor implements Processor, ParameterAwareProcessor {
 
     private String apiKey;
 
