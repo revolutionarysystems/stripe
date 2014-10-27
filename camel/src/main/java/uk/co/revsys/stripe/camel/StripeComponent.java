@@ -25,9 +25,13 @@ public class StripeComponent extends MappedProcessorComponent{
         mappings.put("createCustomer", CreateCustomerProcessor.class);
         mappings.put("deleteCustomer", DeleteCustomerProcessor.class);
         mappings.put("createSubscription", CreateSubscriptionProcessor.class);
+        mappings.put("updateSubscription", UpdateSubscriptionProcessor.class);
+        mappings.put("increaseSubscriptionMultiplier", IncreaseSubscriptionMultiplierProcessor.class);
+        mappings.put("decreaseSubscriptionMultiplier", DecreaseSubscriptionMultiplierProcessor.class);
         mappings.put("createCard", CreateCardProcessor.class);
         mappings.put("deleteCard", DeleteCardProcessor.class);
         mappings.put("setDefaultCard", SetDefaultCardProcessor.class);
+        mappings.put("changePlan", ChangePlanProcessor.class);
     }
 
     @Override
