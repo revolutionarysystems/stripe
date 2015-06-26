@@ -21,6 +21,7 @@ public class StripeComponent extends MappedProcessorComponent{
     protected void populateMappings(Map<String, Class<? extends Processor>> mappings) {
         mappings.put("customer", RetrieveCustomerProcessor.class);
         mappings.put("invoice", RetrieveInvoiceProcessor.class);
+        mappings.put("upcomingInvoice", RetrieveUpcomingInvoiceProcessor.class);
         mappings.put("invoices", RetrieveInvoicesProcessor.class);
         mappings.put("createCustomer", CreateCustomerProcessor.class);
         mappings.put("deleteCustomer", DeleteCustomerProcessor.class);
